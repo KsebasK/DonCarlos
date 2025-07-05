@@ -1,15 +1,28 @@
 package logica;
 
+import javax.persistence.*;
 import java.util.Date;
 
-
+@Entity
+@Table(name = "clientes")
 public class Cliente {
+
+    @Id
+    @Column(name = "id_cliente")
     private int idCliente;
+
     private String nombre;
     private String telefono;
     private String email;
+
+    @Column(name = "documento_identidad")
     private String documentoIdentidad;
+
+    @Column(name = "limite_credito")
     private double limiteCredito;
+
+    @Column(name = "fecha_registro")
+    @Temporal(TemporalType.DATE)
     private Date fechaRegistro;
 
     public Cliente() {}

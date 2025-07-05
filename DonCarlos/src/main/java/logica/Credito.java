@@ -1,15 +1,34 @@
 package logica;
 
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "creditos")
 public class Credito {
+
+    @Id
+    @Column(name = "id_credito")
     private int idCredito;
+
+    @Column(name = "cliente_id")
     private int clienteId;
+
+    @Column(name = "id_usu")
     private int idUsu;
+
+    @Column(name = "fecha_emision")
+    @Temporal(TemporalType.DATE)
     private Date fechaEmision;
+
+    @Column(name = "fecha_vencimiento")
+    @Temporal(TemporalType.DATE)
     private Date fechaVencimiento;
+
+    @Column(name = "monto_total")
     private double montoTotal;
-    private String estado; // "PENDIENTE", "PAGADO", "VENCIDO"
+
+    private String estado;
 
     public Credito() {}
 

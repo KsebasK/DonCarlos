@@ -1,10 +1,24 @@
 package logica;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "detalle_credito")
 public class DetalleCredito {
+
+    @Id
+    @Column(name = "id_detalle")
     private int idDetalle;
+
+    @Column(name = "credito_id")
     private int creditoId;
+
+    @Column(name = "producto_id")
     private int productoId;
+
     private int cantidad;
+
+    @Column(name = "precio_unitario")
     private double precioUnitario;
 
     public DetalleCredito() {}
@@ -32,4 +46,3 @@ public class DetalleCredito {
     public double getPrecioUnitario() { return precioUnitario; }
     public void setPrecioUnitario(double precioUnitario) { this.precioUnitario = precioUnitario; }
 }
-

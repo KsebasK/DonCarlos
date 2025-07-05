@@ -1,10 +1,21 @@
 package logica;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "usuarios")
 public class Usuario {
+
+    @Id
+    @Column(name = "id_usu")
     private int idUsu;
+
     private String nombre;
+
     private String contrasena;
+
     private String email;
+
     private boolean activo;
 
     public Usuario() {}

@@ -1,5 +1,15 @@
+package logica;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "productos")
 public class Producto {
+
+    @Id
+    @Column(name = "id_producto")
     private int idProducto;
+
     private String nombre;
     private String descripcion;
     private double precio;

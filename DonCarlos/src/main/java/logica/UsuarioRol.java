@@ -1,6 +1,19 @@
+package logica;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "usuario_rol")
 public class UsuarioRol {
+
+    @Id
+    @Column(name = "id_usuario_rol")
     private int idUsuarioRol;
+
+    @Column(name = "usuario_id")
     private int usuarioId;
+
+    @Column(name = "rol_id")
     private int rolId;
 
     public UsuarioRol() {}
