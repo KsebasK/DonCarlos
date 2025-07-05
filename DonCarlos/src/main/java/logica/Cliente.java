@@ -2,6 +2,7 @@ package logica;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "clientes")
@@ -25,6 +26,9 @@ public class Cliente {
     @Temporal(TemporalType.DATE)
     private Date fechaRegistro;
 
+    @OneToMany(mappedBy = "cliente")
+    private List<Credito> creditos;
+
     public Cliente() {}
 
     public Cliente(int idCliente, String nombre, String telefono, String email, String documentoIdentidad, double limiteCredito, Date fechaRegistro) {
@@ -36,6 +40,8 @@ public class Cliente {
         this.limiteCredito = limiteCredito;
         this.fechaRegistro = fechaRegistro;
     }
+
+    // Getters y Setters
 
     public int getIdCliente() { return idCliente; }
     public void setIdCliente(int idCliente) { this.idCliente = idCliente; }

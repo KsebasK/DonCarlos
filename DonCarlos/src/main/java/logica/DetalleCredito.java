@@ -1,20 +1,23 @@
 package logica;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "detalle_credito")
-public class DetalleCredito {
+public class DetalleCredito implements Serializable {
 
     @Id
     @Column(name = "id_detalle")
     private int idDetalle;
 
-    @Column(name = "credito_id")
-    private int creditoId;
+    @ManyToOne
+    @JoinColumn(name = "credito_id")
+    private Credito credito;
 
-    @Column(name = "producto_id")
-    private int productoId;
+    @ManyToOne
+    @JoinColumn(name = "producto_id")
+    private Producto producto;
 
     private int cantidad;
 
@@ -23,26 +26,53 @@ public class DetalleCredito {
 
     public DetalleCredito() {}
 
-    public DetalleCredito(int idDetalle, int creditoId, int productoId, int cantidad, double precioUnitario) {
+    public DetalleCredito(int idDetalle, Credito credito, Producto producto, int cantidad, double precioUnitario) {
         this.idDetalle = idDetalle;
-        this.creditoId = creditoId;
-        this.productoId = productoId;
+        this.credito = credito;
+        this.producto = producto;
         this.cantidad = cantidad;
         this.precioUnitario = precioUnitario;
     }
 
-    public int getIdDetalle() { return idDetalle; }
-    public void setIdDetalle(int idDetalle) { this.idDetalle = idDetalle; }
+    // Getters y Setters
 
-    public int getCreditoId() { return creditoId; }
-    public void setCreditoId(int creditoId) { this.creditoId = creditoId; }
+    public int getIdDetalle() {
+        return idDetalle;
+    }
 
-    public int getProductoId() { return productoId; }
-    public void setProductoId(int productoId) { this.productoId = productoId; }
+    public void setIdDetalle(int idDetalle) {
+        this.idDetalle = idDetalle;
+    }
 
-    public int getCantidad() { return cantidad; }
-    public void setCantidad(int cantidad) { this.cantidad = cantidad; }
+    public Credito getCredito() {
+        return credito;
+    }
 
-    public double getPrecioUnitario() { return precioUnitario; }
-    public void setPrecioUnitario(double precioUnitario) { this.precioUnitario = precioUnitario; }
+    public void setCredito(Credito credito) {
+        this.credito = credito;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public double getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(double precioUnitario) {
+        this.precioUnitario = precioUnitario;
+    }
 }

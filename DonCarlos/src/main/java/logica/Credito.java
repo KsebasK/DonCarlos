@@ -1,21 +1,25 @@
 package logica;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "creditos")
-public class Credito {
+public class Credito implements Serializable {
 
     @Id
     @Column(name = "id_credito")
     private int idCredito;
 
-    @Column(name = "cliente_id")
-    private int clienteId;
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 
-    @Column(name = "id_usu")
-    private int idUsu;
+    @ManyToOne
+    @JoinColumn(name = "id_usu")
+    private Usuario usuario;
 
     @Column(name = "fecha_emision")
     @Temporal(TemporalType.DATE)
@@ -30,36 +34,95 @@ public class Credito {
 
     private String estado;
 
+    @OneToMany(mappedBy = "credito", cascade = CascadeType.ALL)
+    private List<DetalleCredito> detalles;
+
+    @OneToMany(mappedBy = "credito", cascade = CascadeType.ALL)
+    private List<Pago> pagos;
+
     public Credito() {}
 
-    public Credito(int idCredito, int clienteId, int idUsu, Date fechaEmision, Date fechaVencimiento, double montoTotal, String estado) {
+    public Credito(int idCredito, Cliente cliente, Usuario usuario, Date fechaEmision, Date fechaVencimiento, double montoTotal, String estado) {
         this.idCredito = idCredito;
-        this.clienteId = clienteId;
-        this.idUsu = idUsu;
+        this.cliente = cliente;
+        this.usuario = usuario;
         this.fechaEmision = fechaEmision;
         this.fechaVencimiento = fechaVencimiento;
         this.montoTotal = montoTotal;
         this.estado = estado;
     }
 
-    public int getIdCredito() { return idCredito; }
-    public void setIdCredito(int idCredito) { this.idCredito = idCredito; }
+    // Getters y Setters
 
-    public int getClienteId() { return clienteId; }
-    public void setClienteId(int clienteId) { this.clienteId = clienteId; }
+    public int getIdCredito() {
+        return idCredito;
+    }
 
-    public int getIdUsu() { return idUsu; }
-    public void setIdUsu(int idUsu) { this.idUsu = idUsu; }
+    public void setIdCredito(int idCredito) {
+        this.idCredito = idCredito;
+    }
 
-    public Date getFechaEmision() { return fechaEmision; }
-    public void setFechaEmision(Date fechaEmision) { this.fechaEmision = fechaEmision; }
+    public Cliente getCliente() {
+        return cliente;
+    }
 
-    public Date getFechaVencimiento() { return fechaVencimiento; }
-    public void setFechaVencimiento(Date fechaVencimiento) { this.fechaVencimiento = fechaVencimiento; }
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
 
-    public double getMontoTotal() { return montoTotal; }
-    public void setMontoTotal(double montoTotal) { this.montoTotal = montoTotal; }
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
-    public String getEstado() { return estado; }
-    public void setEstado(String estado) { this.estado = estado; }
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Date getFechaEmision() {
+        return fechaEmision;
+    }
+
+    public void setFechaEmision(Date fechaEmision) {
+        this.fechaEmision = fechaEmision;
+    }
+
+    public Date getFechaVencimiento() {
+        return fechaVencimiento;
+    }
+
+    public void setFechaVencimiento(Date fechaVencimiento) {
+        this.fechaVencimiento = fechaVencimiento;
+    }
+
+    public double getMontoTotal() {
+        return montoTotal;
+    }
+
+    public void setMontoTotal(double montoTotal) {
+        this.montoTotal = montoTotal;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public List<DetalleCredito> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetalleCredito> detalles) {
+        this.detalles = detalles;
+    }
+
+    public List<Pago> getPagos() {
+        return pagos;
+    }
+
+    public void setPagos(List<Pago> pagos) {
+        this.pagos = pagos;
+    }
 }

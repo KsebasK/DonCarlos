@@ -1,35 +1,55 @@
 package logica;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "usuario_rol")
-public class UsuarioRol {
+public class UsuarioRol implements Serializable {
 
     @Id
     @Column(name = "id_usuario_rol")
     private int idUsuarioRol;
 
-    @Column(name = "usuario_id")
-    private int usuarioId;
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
 
-    @Column(name = "rol_id")
-    private int rolId;
+    @ManyToOne
+    @JoinColumn(name = "rol_id")
+    private Rol rol;
 
     public UsuarioRol() {}
 
-    public UsuarioRol(int idUsuarioRol, int usuarioId, int rolId) {
+    public UsuarioRol(int idUsuarioRol, Usuario usuario, Rol rol) {
         this.idUsuarioRol = idUsuarioRol;
-        this.usuarioId = usuarioId;
-        this.rolId = rolId;
+        this.usuario = usuario;
+        this.rol = rol;
     }
 
-    public int getIdUsuarioRol() { return idUsuarioRol; }
-    public void setIdUsuarioRol(int idUsuarioRol) { this.idUsuarioRol = idUsuarioRol; }
+    // Getters y Setters
 
-    public int getUsuarioId() { return usuarioId; }
-    public void setUsuarioId(int usuarioId) { this.usuarioId = usuarioId; }
+    public int getIdUsuarioRol() {
+        return idUsuarioRol;
+    }
 
-    public int getRolId() { return rolId; }
-    public void setRolId(int rolId) { this.rolId = rolId; }
+    public void setIdUsuarioRol(int idUsuarioRol) {
+        this.idUsuarioRol = idUsuarioRol;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
 }

@@ -1,5 +1,6 @@
 package logica;
 
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -11,14 +12,15 @@ public class Usuario {
     private int idUsu;
 
     private String nombre;
-
     private String contrasena;
-
     private String email;
-
     private boolean activo;
 
+    @OneToMany(mappedBy = "usuario")
+    private List<Credito> creditos;
+
     public Usuario() {}
+    // Constructor completo, getters y setters
 
     public Usuario(int idUsu, String nombre, String contrasena, String email, boolean activo) {
         this.idUsu = idUsu;
