@@ -1,5 +1,6 @@
 package logica;
 
+import java.util.List;
 import javax.persistence.*;
 
 @Entity
@@ -14,14 +15,11 @@ public class Producto {
     private String descripcion;
     private double precio;
 
-    public Producto() {}
+    @OneToMany(mappedBy = "producto")
+    private List<DetalleCredito> detalles;
 
-    public Producto(int idProducto, String nombre, String descripcion, double precio) {
-        this.idProducto = idProducto;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.precio = precio;
-    }
+    public Producto() {}
+    // Constructor completo, getters y setters
 
     public int getIdProducto() { return idProducto; }
     public void setIdProducto(int idProducto) { this.idProducto = idProducto; }
