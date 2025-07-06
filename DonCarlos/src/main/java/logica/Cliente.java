@@ -1,12 +1,13 @@
 package logica;
 
+import java.io.Serializable;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "clientes")
-public class Cliente {
+public class Cliente implements Serializable {
 
     @Id
     @Column(name = "id_cliente")
