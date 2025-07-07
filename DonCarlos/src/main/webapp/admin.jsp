@@ -52,9 +52,9 @@
             <div class="top-bar">
                 <h1>Panel Vendedor</h1>
                 <div class="user-info">
-                    <img src="https://ui-avatars.com/api/?name=${usuario.nombre}&background=00f2ff&color=000" alt="Usuario">
+                    <img src="https://ui-avatars.com/api/?name=${usuario.getNombre}&background=00f2ff&color=000" alt="Usuario">
                     <div>
-                        <p>${usuario.nombre}</p>
+                        <p>${usuario.getNombre}</p>
                         <small>Don Carlos Celulares</small>
                     </div>
                 </div>
@@ -99,3 +99,139 @@
                                 </div>
 
                                 <div>
+                                    <label for="modeloCelular">Modelo:</label>
+                                    <input type="text" id="modeloCelular" name="modeloCelular" class="controles" required />
+                                </div>
+
+                                <div>
+                                    <label for="precioVenta">Precio Total ($):</label>
+                                    <input type="number" id="precioVenta" name="precioVenta" class="controles" step="0.01" required />
+                                </div>
+
+                                <div>
+                                    <label for="cuotas">N° de Cuotas:</label>
+                                    <input type="number" id="cuotas" name="cuotas" class="controles" min="1" max="36" required />
+                                </div>
+
+                                <button type="submit" class="boton">
+                                    <i class="fas fa-save"></i> Registrar Venta
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sección Créditos -->
+                <section id="seccionCreditos" class="seccion-oculta">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Gestión de Créditos</h2>
+                        </div>
+                        <div class="card-body">
+                            <div style="overflow-x: auto;">
+                                <table class="tabla">
+                                    <thead>
+                                        <tr>
+                                            <th>Cliente</th>
+                                            <th>Modelo</th>
+                                            <th>Precio</th>
+                                            <th>Cuotas</th>
+                                            <th>Saldo</th>
+                                            <th>Vencimiento</th>
+                                            <th>Estado</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Aquí luego usarás JSTL con <c:forEach> para mostrar créditos dinámicos -->
+                                        <tr>
+                                            <td>Juan Pérez</td>
+                                            <td>Samsung Galaxy S23</td>
+                                            <td>$1,200.00</td>
+                                            <td>12</td>
+                                            <td>$800.00</td>
+                                            <td>15/07/2025</td>
+                                            <td><span class="badge badge-success">Al día</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Sección Registrar Pago -->
+                <section id="seccionPagos" class="seccion-oculta">
+                    <div class="card">
+                        <div class="card-header">
+                            <h2>Registrar Pago</h2>
+                        </div>
+                        <div class="card-body">
+                            <form id="formPago" class="formulario" action="SvPagos" method="POST">
+                                <div>
+                                    <label for="clientePago">Cliente:</label>
+                                    <input type="text" id="clientePago" name="clientePago" class="controles" required />
+                                </div>
+
+                                <div>
+                                    <label for="montoPago">Monto ($):</label>
+                                    <input type="number" id="montoPago" name="montoPago" class="controles" required />
+                                </div>
+
+                                <div>
+                                    <label for="fechaPago">Fecha:</label>
+                                    <input type="date" id="fechaPago" name="fechaPago" class="controles" required />
+                                </div>
+
+                                <div>
+                                    <label for="descripcionPago">Descripción:</label>
+                                    <textarea id="descripcionPago" name="descripcionPago" class="controles"></textarea>
+                                </div>
+
+                                <button type="submit" class="boton">
+                                    <i class="fas fa-money-bill-wave"></i> Registrar Pago
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const menuLinks = document.querySelectorAll('.sidebar-menu a');
+            const sections = {
+                ventas: document.getElementById('seccionVentas'),
+                creditos: document.getElementById('seccionCreditos'),
+                pagos: document.getElementById('seccionPagos')
+            };
+
+            function showSection(sectionId) {
+                Object.values(sections).forEach(section => {
+                    section.classList.add('seccion-oculta');
+                    section.classList.remove('seccion-activa');
+                });
+                sections[sectionId].classList.remove('seccion-oculta');
+                sections[sectionId].classList.add('seccion-activa');
+                menuLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-page') === sectionId) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+
+            menuLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const sectionId = this.getAttribute('data-page');
+                    showSection(sectionId);
+                });
+            });
+
+            showSection('ventas');
+        });
+    </script>
+</body>
+</html>

@@ -20,7 +20,7 @@
     <section class="Formulario">
         <h4>🔐 Iniciar Sesión</h4>
         <form action="SvLogin" method="POST">
-           <p> <input class="controles" type="email" name="email" placeholder="📧 Correo electrónico" required></p>
+           <p> <input class="controles" type="email" name="correo" placeholder="📧 Correo electrónico" required></p>
            <p> <input class="controles" type="password" name="contrasena" placeholder="🔑 Contraseña" required></p>
            <p> <input class="boton" type="submit" value="Ingresar"></p>
             <p><a href="register.jsp">¿No tienes cuenta? Regístrate</a></p>

@@ -19,7 +19,7 @@ public class SvLogin extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
         throws ServletException, IOException {
         
-        String email = request.getParameter("email");
+        String email = request.getParameter("correo");
         String contrasena = request.getParameter("contrasena");
 
         try {

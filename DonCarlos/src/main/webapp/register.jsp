@@ -18,10 +18,10 @@
     <section class="Formulario">
       <h4>🔒 Registro de Usuario</h4>
       <form action="SvUsuarios" method="POST">
-    <input class="controles" type="text" name="nombres" placeholder="📛 Nombres" required>
-    <input class="controles" type="text" name="apellidos" placeholder="📛 Apellidos" required>
-    <input class="controles" type="email" name="correo" placeholder="📧 Correo electrónico" required>
-    <input class="controles" type="password" name="contrasena" placeholder="🔐 Contraseña" required>
+    <input class="controles" type="text" id ="nombres" name="nombres" placeholder="📛 Nombres" required>
+    <input class="controles" type="text" id ="apellidos" name="apellidos" placeholder="📛 Apellidos" required>
+    <input class="controles" type="email"id ="correo" name="correo" placeholder="📧 Correo electrónico" required>
+    <input class="controles" type="password" id = "contrasena" name="contrasena" placeholder="🔐 Contraseña" required>
 
     <p>Estoy de acuerdo con: <a href="#">Términos y condiciones</a></p>
     <input class="boton" type="submit" value="Registrar"> 
