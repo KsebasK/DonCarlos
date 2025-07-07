@@ -8,6 +8,7 @@ import javax.persistence.*;
 public class Usuario {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Usa esta estrategia si usas MySQL con auto_increment
     @Column(name = "id_usu")
     private int idUsu;
 

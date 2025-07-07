@@ -28,7 +28,7 @@ public class SvLogin extends HttpServlet {
             if (usuario != null && usuario.getContrasena().equals(contrasena) && usuario.isActivo()) {
                 HttpSession session = request.getSession();
                 session.setAttribute("usuario", usuario);
-                response.sendRedirect("dashboard.jsp");
+                response.sendRedirect("admin.jsp");
             } else {
                 request.setAttribute("error", "Correo o contraseña incorrectos, o cuenta inactiva.");
                 request.getRequestDispatcher("login.jsp").forward(request, response);

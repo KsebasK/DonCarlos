@@ -14,31 +14,31 @@ import persistencia.UsuarioJpaController;
 public class SvUsuarios extends HttpServlet {
 
     EntityManagerFactory emf = Persistence.createEntityManagerFactory("tiendaPU");
-    UsuarioJpaController usuarioController = new UsuarioJpaController(emf);
+    UsuarioJpaController usuarioJPA = new UsuarioJpaController(emf);
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-
+            throws ServletException, IOException {
+        
         String nombres = request.getParameter("nombres");
-        String apellidos = request.getParameter("apellidos"); // aún no usado
-        String correo = request.getParameter("correo");
-        String password = request.getParameter("password");
-
-        // Crear usuario
-        Usuario nuevoUsuario = new Usuario();
-        nuevoUsuario.setNombre(nombres); // Si tienes nombre y apellido separados, puedes concatenarlos
-        nuevoUsuario.setEmail(correo);
-        nuevoUsuario.setContrasena(password);
-        nuevoUsuario.setActivo(true); // Por defecto activo
+        String apellidos = request.getParameter("apellidos");
+        String email = request.getParameter("correo");
+        String contrasena = request.getParameter("contrasena");
 
         try {
-            usuarioController.create(nuevoUsuario);
-            // Redirigir al login tras registro exitoso
+            Usuario nuevoUsuario = new Usuario();
+            nuevoUsuario.setNombre(nombres + " " + apellidos);
+            nuevoUsuario.setEmail(email);
+            nuevoUsuario.setContrasena(contrasena);
+            nuevoUsuario.setActivo(true);
+
+            usuarioJPA.create(nuevoUsuario);
+
             response.sendRedirect("login.jsp");
+
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp"); // crea esta vista si deseas mostrar errores
+            response.getWriter().write("Error registrando usuario: " + e.getMessage());
         }
     }
 }
