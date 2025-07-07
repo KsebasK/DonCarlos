@@ -24,27 +24,13 @@
             </div>
             <div class="sidebar-menu">
                 <ul>
-                    <li>
-                        <a href="#" class="active" data-page="ventas">
-                            <i class="fas fa-cash-register"></i> <span>Registrar Venta</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-page="creditos">
-                            <i class="fas fa-credit-card"></i> <span>Créditos</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" data-page="pagos">
-                            <i class="fas fa-money-bill-wave"></i> <span>Registrar Pago</span>
-                        </a>
-                    </li>
+                    <li><a href="#" class="active" data-page="ventas"><i class="fas fa-cash-register"></i> <span>Registrar Venta</span></a></li>
+                    <li><a href="#" data-page="creditos"><i class="fas fa-credit-card"></i> <span>Créditos</span></a></li>
+                    <li><a href="#" data-page="pagos"><i class="fas fa-money-bill-wave"></i> <span>Registrar Pago</span></a></li>
                 </ul>
             </div>
             <div class="sidebar-footer">
-                <a href="logout.jsp">
-                    <i class="fas fa-sign-out-alt"></i> <span>Cerrar Sesión</span>
-                </a>
+                <a href="logout.jsp"><i class="fas fa-sign-out-alt"></i> <span>Cerrar Sesión</span></a>
             </div>
         </div>
 
@@ -52,15 +38,16 @@
             <div class="top-bar">
                 <h1>Panel Vendedor</h1>
                 <div class="user-info">
-                    <img src="https://ui-avatars.com/api/?name=${usuario.getNombre}&background=00f2ff&color=000" alt="Usuario">
+                    <img src="https://ui-avatars.com/api/?name=${usuario.nombre}&background=00f2ff&color=000" alt="Usuario">
                     <div>
-                        <p>${usuario.getNombre}</p>
+                        <p>${usuario.nombre}</p>
                         <small>Don Carlos Celulares</small>
                     </div>
                 </div>
             </div>
 
             <div class="content">
+
                 <!-- Sección Registrar Venta -->
                 <section id="seccionVentas" class="seccion-activa">
                     <div class="card">
@@ -73,49 +60,34 @@
                                     <label for="clienteVenta">Nombre del Cliente:</label>
                                     <input type="text" id="clienteVenta" name="clienteVenta" class="controles" required />
                                 </div>
-
                                 <div>
                                     <label for="marcaCelular">Marca:</label>
                                     <select id="marcaCelular" name="marcaCelular" class="controles">
                                         <option value="">Seleccione una marca</option>
-                                        <option>Samsung</option>
-                                        <option>Apple</option>
-                                        <option>Xiaomi</option>
-                                        <option>Motorola</option>
-                                        <option>Huawei</option>
-                                        <option>Tecno</option>
-                                        <option>Honor</option>
+                                        <option>Samsung</option><option>Apple</option><option>Xiaomi</option>
+                                        <option>Motorola</option><option>Huawei</option><option>Tecno</option><option>Honor</option>
                                     </select>
                                 </div>
-
                                 <div>
                                     <label for="gamaCelular">Gama:</label>
                                     <select id="gamaCelular" name="gamaCelular" class="controles">
                                         <option value="">Seleccione una gama</option>
-                                        <option>Alta</option>
-                                        <option>Media</option>
-                                        <option>Baja</option>
+                                        <option>Alta</option><option>Media</option><option>Baja</option>
                                     </select>
                                 </div>
-
                                 <div>
                                     <label for="modeloCelular">Modelo:</label>
                                     <input type="text" id="modeloCelular" name="modeloCelular" class="controles" required />
                                 </div>
-
                                 <div>
                                     <label for="precioVenta">Precio Total ($):</label>
                                     <input type="number" id="precioVenta" name="precioVenta" class="controles" step="0.01" required />
                                 </div>
-
                                 <div>
                                     <label for="cuotas">N° de Cuotas:</label>
                                     <input type="number" id="cuotas" name="cuotas" class="controles" min="1" max="36" required />
                                 </div>
-
-                                <button type="submit" class="boton">
-                                    <i class="fas fa-save"></i> Registrar Venta
-                                </button>
+                                <button type="submit" class="boton"><i class="fas fa-save"></i> Registrar Venta</button>
                             </form>
                         </div>
                     </div>
@@ -142,16 +114,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- Aquí luego usarás JSTL con <c:forEach> para mostrar créditos dinámicos -->
-                                        <tr>
-                                            <td>Juan Pérez</td>
-                                            <td>Samsung Galaxy S23</td>
-                                            <td>$1,200.00</td>
-                                            <td>12</td>
-                                            <td>$800.00</td>
-                                            <td>15/07/2025</td>
-                                            <td><span class="badge badge-success">Al día</span></td>
-                                        </tr>
+                                        <!-- Ejemplo dinámico con JSTL -->
+                                        <c:forEach var="credito" items="${listaCreditos}">
+                                            <tr>
+                                                <td>${credito.cliente.nombre}</td>
+                                                <td>${credito.modelo}</td>
+                                                <td>$${credito.precio}</td>
+                                                <td>${credito.cuotas}</td>
+                                                <td>$${credito.saldo}</td>
+                                                <td>${credito.fechaVencimiento}</td>
+                                                <td><span class="badge badge-success">${credito.estado}</span></td>
+                                            </tr>
+                                        </c:forEach>
+                                        <!-- Fin del c:forEach -->
                                     </tbody>
                                 </table>
                             </div>
@@ -171,22 +146,18 @@
                                     <label for="clientePago">Cliente:</label>
                                     <input type="text" id="clientePago" name="clientePago" class="controles" required />
                                 </div>
-
                                 <div>
                                     <label for="montoPago">Monto ($):</label>
                                     <input type="number" id="montoPago" name="montoPago" class="controles" required />
                                 </div>
-
                                 <div>
                                     <label for="fechaPago">Fecha:</label>
                                     <input type="date" id="fechaPago" name="fechaPago" class="controles" required />
                                 </div>
-
                                 <div>
                                     <label for="descripcionPago">Descripción:</label>
                                     <textarea id="descripcionPago" name="descripcionPago" class="controles"></textarea>
                                 </div>
-
                                 <button type="submit" class="boton">
                                     <i class="fas fa-money-bill-wave"></i> Registrar Pago
                                 </button>
@@ -194,6 +165,7 @@
                         </div>
                     </div>
                 </section>
+
             </div>
         </div>
     </div>
@@ -206,7 +178,6 @@
                 creditos: document.getElementById('seccionCreditos'),
                 pagos: document.getElementById('seccionPagos')
             };
-
             function showSection(sectionId) {
                 Object.values(sections).forEach(section => {
                     section.classList.add('seccion-oculta');
@@ -221,7 +192,6 @@
                     }
                 });
             }
-
             menuLinks.forEach(link => {
                 link.addEventListener('click', function (e) {
                     e.preventDefault();
@@ -229,7 +199,6 @@
                     showSection(sectionId);
                 });
             });
-
             showSection('ventas');
         });
     </script>
