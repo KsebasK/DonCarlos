@@ -22,8 +22,8 @@
             </li>
             
             <li>
-                <a href="admin.jsp" class="<%= currentPage.contains("admin.jsp") ? "active" : "" %>">
-                    <i class="fas fa-cash-register"></i><span>Registrar Venta</span>
+                <a href="<%=request.getContextPath()%>/SvProductos" class="<%= currentPage.contains("admin.jsp") ? "active" : "" %>">
+                     <i class="fas fa-cash-register"></i><span>Registrar Producto</span>
                 </a>
             </li>
             <li>
