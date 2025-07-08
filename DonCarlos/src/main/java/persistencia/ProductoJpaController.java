@@ -4,6 +4,7 @@ import logica.Producto;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
+import logica.exceptions.NonexistentEntityException;
 
 public class ProductoJpaController implements Serializable {
 
@@ -38,6 +39,26 @@ public class ProductoJpaController implements Serializable {
     public Producto findProducto(int id) {
         return getEntityManager().find(Producto.class, id);
     }
+    public void destroy(int id) throws NonexistentEntityException {
+    EntityManager em = getEntityManager();
+    try {
+        em.getTransaction().begin();
+        Producto producto;
+        try {
+            producto = em.getReference(Producto.class, id);
+            producto.getIdProducto(); // Fuerza la carga del proxy
+        } catch (EntityNotFoundException enfe) {
+            throw new NonexistentEntityException("El producto con id " + id + " no existe.", enfe);
+        }
+        em.remove(producto);
+        em.getTransaction().commit();
+    } finally {
+        if (em != null) {
+            em.close();
+        }
+    }
+}
+
 
     public List<Producto> findProductoEntities() {
         return getEntityManager().createQuery("SELECT p FROM Producto p", Producto.class).getResultList();

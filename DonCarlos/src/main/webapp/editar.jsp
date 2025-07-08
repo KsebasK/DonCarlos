@@ -16,15 +16,15 @@
                 <h2>Modificar Producto</h2>
             </div>
             <div class="card-body">
-                <form action="SvProductos" method="POST">
+                <form action="SvProductos" method="POST" class="formulario">
                     <input type="hidden" name="idProducto" value="${productoEditar.idProducto}" />
 
-                    <div>
+                    <div class="form-group">
                         <label>Modelo:</label>
                         <input type="text" name="modeloCelular" value="${productoEditar.nombre}" class="controles" required />
                     </div>
 
-                    <div>
+                    <div class="form-group">
                         <label>Marca:</label>
                         <select name="marcaCelular" class="controles" required>
                             <c:forEach var="marca" items="${['Samsung','Apple','Xiaomi','Motorola','Huawei','Tecno','Honor']}">
@@ -33,7 +33,7 @@
                         </select>
                     </div>
 
-                    <div>
+                    <div class="form-group">
                         <label>Gama:</label>
                         <select name="gamaCelular" class="controles" required>
                             <c:forEach var="gama" items="${['Alta','Media','Baja']}">
@@ -42,14 +42,14 @@
                         </select>
                     </div>
 
-                    <div>
+                    <div class="form-group">
                         <label>Precio ($):</label>
                         <input type="number" name="precioVenta" step="0.01" value="${productoEditar.precio}" class="controles" required />
                     </div>
 
-                    <div>
+                    <div class="form-group">
                         <label>Descripción:</label>
-                        <textarea name="descripcion" class="controles">${productoEditar.descripcion}</textarea>
+                        <textarea name="descripcion" rows="4" class="controles">${productoEditar.descripcion}</textarea>
                     </div>
 
                     <button type="submit" class="boton">

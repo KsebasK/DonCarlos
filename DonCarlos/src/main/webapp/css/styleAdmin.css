@@ -586,3 +586,24 @@ select.controles option:hover {
     background: #00f2ff;
     color: #000;
 }
+
+.btn-eliminar {
+    background-color: #dc3545;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 14px;
+}
+
+.btn-eliminar:hover {
+    background-color: #c82333;
+    box-shadow: 0 0 8px #ff4c61;
+}
+
+.btn-eliminar i {
+    margin-right: 5px;
+}
