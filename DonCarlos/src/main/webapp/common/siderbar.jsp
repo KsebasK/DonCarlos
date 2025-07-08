@@ -26,16 +26,16 @@
                      <i class="fas fa-cash-register"></i><span>Registrar Producto</span>
                 </a>
             </li>
-            <li>
-                <a href="admin.jsp#creditos" class="<%= currentPage.contains("creditos") ? "active" : "" %>">
-                    <i class="fas fa-credit-card"></i><span>Créditos</span>
-                </a>
-            </li>
-            <li>
-                <a href="admin.jsp#pagos" class="<%= currentPage.contains("pagos") ? "active" : "" %>">
-                    <i class="fas fa-money-bill-wave"></i><span>Registrar Pago</span>
-                </a>
-            </li>
+           <li>
+    <a href="construccion.jsp" class="<%= currentPage.contains("creditos") ? "active" : "" %>">
+        <i class="fas fa-credit-card"></i><span>Créditos</span>
+    </a>
+</li>
+<li>
+    <a href="construccion.jsp" class="<%= currentPage.contains("pagos") ? "active" : "" %>">
+        <i class="fas fa-money-bill-wave"></i><span>Registrar Pago</span>
+    </a>
+</li>
             
          
         </ul>
