@@ -1,19 +1,21 @@
 package logica;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "clientes")
 public class Cliente implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_cliente")
     private int idCliente;
 
     private String nombre;
+    private String apellido;
     private String telefono;
     private String email;
 
@@ -27,28 +29,17 @@ public class Cliente implements Serializable {
     @Temporal(TemporalType.DATE)
     private Date fechaRegistro;
 
-    @OneToMany(mappedBy = "cliente")
-    private List<Credito> creditos;
-
     public Cliente() {}
 
-    public Cliente(int idCliente, String nombre, String telefono, String email, String documentoIdentidad, double limiteCredito, Date fechaRegistro) {
-        this.idCliente = idCliente;
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.email = email;
-        this.documentoIdentidad = documentoIdentidad;
-        this.limiteCredito = limiteCredito;
-        this.fechaRegistro = fechaRegistro;
-    }
-
     // Getters y Setters
-
     public int getIdCliente() { return idCliente; }
     public void setIdCliente(int idCliente) { this.idCliente = idCliente; }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public String getApellido() { return apellido; }
+    public void setApellido(String apellido) { this.apellido = apellido; }
 
     public String getTelefono() { return telefono; }
     public void setTelefono(String telefono) { this.telefono = telefono; }

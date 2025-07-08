@@ -4,9 +4,6 @@
 <jsp:include page="common/header.jsp" />
 <jsp:include page="common/siderbar.jsp" />
 
-
-
-
 <div class="main-content">
     <div class="top-bar">
         <h1>Panel Vendedor</h1>
@@ -19,7 +16,7 @@
         </div>
     </div>
 
-    <div class="content">
+   
         <!-- Sección Registrar Venta -->
         <section id="seccionVentas" class="seccion-activa">
             <div class="card">
