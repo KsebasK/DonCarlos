@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" href="css/styleAdmin.css">
     <title>Registrar Cliente</title>
     <style>
         body {

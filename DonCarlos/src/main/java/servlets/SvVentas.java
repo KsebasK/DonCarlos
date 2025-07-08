@@ -5,83 +5,99 @@
 package servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.math.BigDecimal;
+import java.util.Calendar;
+import java.util.Date;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import logica.Cliente;
+import logica.Credito;
+import logica.DetalleCredito;
+import logica.Producto;
+import logica.Usuario;
 
-/**
- *
- * @author User
- */
-@WebServlet(name = "SvVentas", urlPatterns = {"/SvVentas"})
+
+@WebServlet("/SvVentas")
 public class SvVentas extends HttpServlet {
+    @PersistenceUnit(unitName = "tiendaPU")
+    private EntityManagerFactory emf;
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet SvVentas</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet SvVentas at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            String nombreCliente = request.getParameter("clienteVenta");
+            String marca = request.getParameter("marcaCelular");
+            String gama = request.getParameter("gamaCelular");
+            String modelo = request.getParameter("modeloCelular");
+            BigDecimal precio = new BigDecimal(request.getParameter("precioVenta"));
+            int cuotas = Integer.parseInt(request.getParameter("cuotas"));
+
+            // 1. Buscar cliente
+            TypedQuery<Cliente> q = em.createQuery("SELECT c FROM Cliente c WHERE c.nombre = :nombre", Cliente.class);
+            q.setParameter("nombre", nombreCliente);
+            Cliente cliente = q.getResultList().isEmpty() ? null : q.getSingleResult();
+
+            if (cliente == null) {
+                response.sendRedirect("admin.jsp?error=clienteNoExiste");
+                return;
+            }
+
+            // 2. Insertar producto
+            Producto producto = new Producto();
+            producto.setNombre(modelo);
+            producto.setDescripcion("Marca: " + marca + " / Gama: " + gama);
+            producto.setPrecio(precio);
+
+            // 3. Insertar crédito
+            Credito credito = new Credito();
+            credito.setCliente(cliente);
+            credito.setFechaEmision(new Date());
+            credito.setFechaVencimiento(sumarMeses(new Date(), cuotas));
+            credito.setMontoTotal(precio);
+            credito.setEstado("vigente");
+
+            Usuario usuario = (Usuario) request.getSession().getAttribute("usuario");
+            credito.setUsuario(usuario);
+
+            // 4. Detalle crédito
+            DetalleCredito detalle = new DetalleCredito();
+            detalle.setCantidad(1);
+            detalle.setPrecioUnitario(precio);
+            detalle.setProducto(producto);
+            detalle.setCredito(credito);
+
+            em.getTransaction().begin();
+            em.persist(producto);
+            em.persist(credito);
+            em.persist(detalle);
+            em.getTransaction().commit();
+
+            response.sendRedirect("admin.jsp?exito=ventaRegistrada");
+
+        } catch (Exception e) {
+            em.getTransaction().rollback();
+            e.printStackTrace();
+            response.sendRedirect("admin.jsp?error=excepcion");
+        } finally {
+            em.close();
         }
+        
+        response.sendRedirect("SvCreditos");
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+    private Date sumarMeses(Date fecha, int meses) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(fecha);
+        cal.add(Calendar.MONTH, meses);
+        return cal.getTime();
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    
 }

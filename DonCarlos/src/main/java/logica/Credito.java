@@ -2,6 +2,7 @@ package logica;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class Credito implements Serializable {
     private Date fechaVencimiento;
 
     @Column(name = "monto_total")
-    private double montoTotal;
+    private BigDecimal montoTotal;
 
     private String estado;
 
@@ -42,7 +43,7 @@ public class Credito implements Serializable {
 
     public Credito() {}
 
-    public Credito(int idCredito, Cliente cliente, Usuario usuario, Date fechaEmision, Date fechaVencimiento, double montoTotal, String estado) {
+    public Credito(int idCredito, Cliente cliente, Usuario usuario, Date fechaEmision, Date fechaVencimiento, BigDecimal montoTotal, String estado) {
         this.idCredito = idCredito;
         this.cliente = cliente;
         this.usuario = usuario;
@@ -94,13 +95,13 @@ public class Credito implements Serializable {
         this.fechaVencimiento = fechaVencimiento;
     }
 
-    public double getMontoTotal() {
-        return montoTotal;
-    }
+    public BigDecimal getMontoTotal() {
+    return montoTotal;
+}
 
-    public void setMontoTotal(double montoTotal) {
-        this.montoTotal = montoTotal;
-    }
+public void setMontoTotal(BigDecimal montoTotal) {
+    this.montoTotal = montoTotal;
+}
 
     public String getEstado() {
         return estado;

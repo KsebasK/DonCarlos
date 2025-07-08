@@ -18,7 +18,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Cliente</title>
-    <link rel="stylesheet" href="styles/admin.css">
+    <link rel="stylesheet" href="css/styleAdmin.css">
     <style>
         .content {
             margin-left: 250px;

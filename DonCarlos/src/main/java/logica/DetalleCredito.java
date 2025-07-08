@@ -2,6 +2,7 @@ package logica;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "detalle_credito")
@@ -22,11 +23,11 @@ public class DetalleCredito implements Serializable {
     private int cantidad;
 
     @Column(name = "precio_unitario")
-    private double precioUnitario;
+    private BigDecimal precioUnitario;
 
     public DetalleCredito() {}
 
-    public DetalleCredito(int idDetalle, Credito credito, Producto producto, int cantidad, double precioUnitario) {
+    public DetalleCredito(int idDetalle, Credito credito, Producto producto, int cantidad, BigDecimal precioUnitario) {
         this.idDetalle = idDetalle;
         this.credito = credito;
         this.producto = producto;
@@ -68,11 +69,11 @@ public class DetalleCredito implements Serializable {
         this.cantidad = cantidad;
     }
 
-    public double getPrecioUnitario() {
+    public BigDecimal getPrecioUnitario() {
         return precioUnitario;
     }
 
-    public void setPrecioUnitario(double precioUnitario) {
+    public void setPrecioUnitario(BigDecimal precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
 }

@@ -19,7 +19,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Clientes</title>
-    <link rel="stylesheet" href="styles/admin.css">
+    <link rel="stylesheet" href="css/styleAdmin.css">
     <style>
         
         .main-container {
