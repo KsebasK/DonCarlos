@@ -554,3 +554,35 @@ button.boton:hover {
     background-color: #dc3545;
     color: white;
 }
+select.controles {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background: rgba(0, 0, 20, 0.8);
+    color: #00f2ff;
+    border: 1px solid #00f2ff;
+    padding: 12px;
+    border-radius: 10px;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f2ff'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 1em;
+}
+
+/* Estilo para las opciones del dropdown */
+select.controles option {
+    background: rgba(0, 0, 30, 0.9);
+    color: #00f2ff;
+    padding: 10px;
+}
+
+/* Estilo cuando el dropdown está abierto */
+select.controles:focus {
+    box-shadow: 0 0 10px #00f2ff;
+}
+
+/* Estilo para el hover en las opciones */
+select.controles option:hover {
+    background: #00f2ff;
+    color: #000;
+}
